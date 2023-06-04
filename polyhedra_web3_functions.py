@@ -7,7 +7,7 @@ import time
 def mint_nft(private_key, chain,
              gas_multiplier=1.0, bsc_gwei=1.1, attempts=0):
     try:
-        if attempts > 5:
+        if attempts > 10:
             return False
         start_with_public = False if chain == 'BSC' else True
         web3 = start_web3(chain=chain, public_rpc_dict=public_rpc_dict, start_with_public=start_with_public)
@@ -37,7 +37,7 @@ def mint_nft(private_key, chain,
             else:  # failed tx with status 0
                 if gas_multiplier > 1:
                     return False
-                time.sleep(15)
+                time.sleep(30)
                 mint_nft(private_key, chain,
                          gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -93,7 +93,7 @@ def approve_nft(private_key, chain, nft_token_id,
 
     except Exception as e:
         print(f'{get_time()} | approve_nft | {wallet_address} | exception: {e}')
-        time.sleep(15)
+        time.sleep(30)
         return approve_nft(private_key, chain, nft_token_id,
                            gas_multiplier=gas_multiplier+0.1, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -101,7 +101,7 @@ def approve_nft(private_key, chain, nft_token_id,
 def bridge_nft(private_key, chain_from, chain_to, nft_token_id,
                gas_multiplier=1.0, bsc_gwei=1.1, attempts=0):
     try:
-        if attempts > 5:
+        if attempts > 15:
             return False
         start_with_public = False if chain_from == 'BSC' else True
         web3 = start_web3(chain=chain_from, public_rpc_dict=public_rpc_dict, start_with_public=start_with_public)
@@ -148,7 +148,7 @@ def bridge_nft(private_key, chain_from, chain_to, nft_token_id,
 
     except Exception as e:
         print(f'{get_time()} | bridge_nft | {wallet_address} | exception: {e}')
-        time.sleep(15)
+        time.sleep(60)
         return bridge_nft(private_key, chain_from, chain_to, nft_token_id,
                           gas_multiplier=gas_multiplier+0.1, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -156,7 +156,7 @@ def bridge_nft(private_key, chain_from, chain_to, nft_token_id,
 def claim_nft(private_key, chain, data_json,
               gas_multiplier=1.0, bsc_gwei=1.1, attempts=0):
     try:
-        if attempts > 5:
+        if attempts > 25:
             return False
         start_with_public = False if chain == 'BSC' else True
         web3 = start_web3(chain=chain, public_rpc_dict=public_rpc_dict, start_with_public=start_with_public)
@@ -192,13 +192,13 @@ def claim_nft(private_key, chain, data_json,
             else:  # failed tx with status 0
                 if gas_multiplier > 1:
                     return False
-                time.sleep(15)
+                time.sleep(60)
                 claim_nft(private_key, chain, data_json,
                           gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
     except Exception as e:
         print(f'{get_time()} | claim_nft | {wallet_address} | exception: {e}')
-        time.sleep(15)
+        time.sleep(60)
         return claim_nft(private_key, chain, data_json,
                          gas_multiplier=gas_multiplier+0.1, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
