@@ -5,17 +5,13 @@ MORALIS_API_KEY = ''
 
 extra_wei_multiplier = {
     137: {'maxFeePerGas': {'type': 'multiplier', 'value': 2},
-          'maxPriorityFeePerGas': {'type': 'multiplier', 'value': 2},
-          'gasLimitForERC20': int(random.uniform(90000, 100000))},
+          'maxPriorityFeePerGas': {'type': 'multiplier', 'value': 2}},
     1: {'maxFeePerGas': {'type': 'multiplier', 'value': 1.25},
-        'maxPriorityFeePerGas': {'type': 'static', 'value': w3.to_wei(0.1, 'gwei')},
-        'gasLimitForERC20': int(random.uniform(90000, 100000))},
+        'maxPriorityFeePerGas': {'type': 'static', 'value': w3.to_wei(0.1, 'gwei')}},
     42161: {'maxFeePerGas': {'type': 'multiplier', 'value': 1.35},
-            'maxPriorityFeePerGas': {'type': 'static', 'value': w3.to_wei(0, 'gwei')},
-            'gasLimitForERC20': int(random.uniform(90000, 100000))},
+            'maxPriorityFeePerGas': {'type': 'static', 'value': w3.to_wei(0, 'gwei')}},
     43114: {'maxFeePerGas': {'type': 'multiplier', 'value': 1.25},
-            'maxPriorityFeePerGas': {'type': 'multiplier', 'value': 1.25},
-            'gasLimitForERC20': int(random.uniform(90000, 100000))}}
+            'maxPriorityFeePerGas': {'type': 'multiplier', 'value': 1.25}}}
 
 ankr_rpc_chain_name = {'Ethereum': 'eth',
                        'BSC': 'bsc',
