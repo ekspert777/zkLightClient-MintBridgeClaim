@@ -37,7 +37,7 @@ def mint_nft(private_key, chain,
             else:  # failed tx with status 0
                 if gas_multiplier > 1:
                     return False
-                time.sleep(30)
+                time.sleep(15)
                 mint_nft(private_key, chain,
                          gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -45,9 +45,12 @@ def mint_nft(private_key, chain,
         if 'execution reverted: Each address may claim one NFT only. You have claimed already.' in str(e):
             print(f'{get_time()} | mint_nft | {wallet_address} | has already minted, continuing')
             return {'from': wallet_address, 'status': 1}
+        elif 'gas required exceeds allowance' in str(e):
+            print(f'{get_time()} | mint_nft | {wallet_address} | not enough native on wallet')
+            return False
 
         print(f'{get_time()} | mint_nft | {wallet_address} | exception: {e}')
-        time.sleep(15)
+        time.sleep(30)
         return mint_nft(private_key, chain,
                         gas_multiplier=gas_multiplier+0.1, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -92,6 +95,10 @@ def approve_nft(private_key, chain, nft_token_id,
                             gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
     except Exception as e:
+        if 'gas required exceeds allowance' in str(e):
+            print(f'{get_time()} | approve_nft | {wallet_address} | not enough native on wallet')
+            return False
+        
         print(f'{get_time()} | approve_nft | {wallet_address} | exception: {e}')
         time.sleep(30)
         return approve_nft(private_key, chain, nft_token_id,
@@ -147,8 +154,12 @@ def bridge_nft(private_key, chain_from, chain_to, nft_token_id,
                            gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
     except Exception as e:
+        if 'gas required exceeds allowance' in str(e):
+            print(f'{get_time()} | bridge_nft | {wallet_address} | not enough native on wallet')
+            return False
+        
         print(f'{get_time()} | bridge_nft | {wallet_address} | exception: {e}')
-        time.sleep(60)
+        time.sleep(30)
         return bridge_nft(private_key, chain_from, chain_to, nft_token_id,
                           gas_multiplier=gas_multiplier+0.1, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
@@ -192,11 +203,15 @@ def claim_nft(private_key, chain, data_json,
             else:  # failed tx with status 0
                 if gas_multiplier > 1:
                     return False
-                time.sleep(60)
+                time.sleep(15)
                 claim_nft(private_key, chain, data_json,
                           gas_multiplier=gas_multiplier+0.25, bsc_gwei=bsc_gwei, attempts=attempts+1)
 
     except Exception as e:
+        if 'gas required exceeds allowance' in str(e):
+            print(f'{get_time()} | claim_nft | {wallet_address} | not enough native on wallet')
+            return False
+        
         print(f'{get_time()} | claim_nft | {wallet_address} | exception: {e}')
         time.sleep(60)
         return claim_nft(private_key, chain, data_json,
