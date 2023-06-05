@@ -49,9 +49,9 @@ def process_wallet(private_key, chain_from, chain_to):
             return False
 
         claim_tx = claim_nft(private_key=private_key, chain=chain_to, data_json=response_json)
-        if not bridge_tx:
+        if not claim_tx:
             return False
-        elif not bridge_tx['status']:
+        elif not claim_tx['status']:
             return False
 
         claim_post_request = claim_order_request(claim_hash=claim_tx['transactionHash'].hex(),
