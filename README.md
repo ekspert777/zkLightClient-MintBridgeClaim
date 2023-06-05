@@ -35,3 +35,5 @@ main(txt_path='private_keys.txt', max_workers=5, chain_from='BSC', chain_to='Pol
 ```
 
 And voila! Your journey to potential wealth with Polyhedra starts here. With every NFT minted, a new hope for an airdrop shines brighter. Let's get minting and become the rockstars of the crypto world! (ChatGPT-4)
+
+воркаем долбарики
