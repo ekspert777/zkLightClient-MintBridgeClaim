@@ -9,7 +9,7 @@ MORALIS_API_KEY = 'YOUR_API_KEY'
 ```
 
 ## Bridging Assets
-Currently, our solution supports bridging between Binance Smart Chain (BSC) and Polygon in both directions:
+Currently, this solution supports bridging between Binance Smart Chain (BSC) and Polygon in both directions:
 
 - BSC -> Polygon 
 - Polygon -> BSC
